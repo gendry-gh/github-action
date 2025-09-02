@@ -1,4 +1,4 @@
-# <repo>/github-action@v2 
+# fortify/github-action@v2 
 
 
 <!-- START-INCLUDE:p.marketing-intro.md -->
@@ -28,7 +28,7 @@ The following sections describe these topics in more detail:
 
 <!-- START-INCLUDE:action/_generic/prerequisites.md -->
 
-This action assumes the standard software packages as provided by GitHub-hosted runners to be available. If you are using self-hosted runners, you may need to install some of these software packages in order to successfully use this action. In particular, not having the following software installed is known to cause issues when running `<repo>/github-action` or one of its sub-actions:
+This action assumes the standard software packages as provided by GitHub-hosted runners to be available. If you are using self-hosted runners, you may need to install some of these software packages in order to successfully use this action. In particular, not having the following software installed is known to cause issues when running `fortify/github-action` or one of its sub-actions:
 
 * Node.js
 * Visual C++ Redistributable (Windows-based runners only)
@@ -50,7 +50,7 @@ The standard workflow provided by this GitHub Action allows for running a Static
       - name: Check out source code
         uses: actions/checkout@v4  
       - name: Run Fortify on Demand SAST & SCA Scan
-        uses: <repo>/github-action@v2
+        uses: fortify/github-action@v2
         with:
           sast-scan: true
           debricked-sca-scan: true
@@ -116,7 +116,7 @@ This section lists the environment variables that can be specified in the `env:`
 |DO_JOB_SUMMARY<br/>JOB_SUMMARY_ACTION<br/>JOB_SUMMARY_EXTRA_OPTS|If `DO_JOB_SUMMARY` is set to `true` (implied if any of the other two `JOB_SUMMARY_*` variables are set, and implies `DO_WAIT`), a job summary listing scan status and issue counts will be generated using the fcli-provided [`release-summary`](https://fortify.github.io/fcli/v3.6.0/fod-actions.html#_release_summary) or, if specified, the custom fcli action specified through `JOB_SUMMARY_ACTION`. Extra options for the fcli action can be passed through the `JOB_SUMMARY_EXTRA_OPTS` environment variable, for example to allow an unsigned custom action to be used. Please see the [Fcli Actions](#fortify-on-demand-fcli-actions) section below for more details. |
 | DO_EXPORT<br/>EXPORT_ACTION<br/>EXPORT_EXTRA_OPTS | If `DO_EXPORT` is set to `true` (implied if any of the other two `EXPORT_*` variables are set, and implies `DO_WAIT`), scan results will be exported to the GitHub Security Code Scanning dashboard using the fcli-provided [`github-sast-report`](https://fortify.github.io/fcli/v3.6.0/fod-actions.html#_github_sast_report) action or, if specified, the custom fcli action specified through `EXPORT_ACTION`. Extra options for the fcli action can be passed through the `EXPORT_EXTRA_OPTS` environment variable, for example to to allow an unsigned custom action to be used. Please see the [Fcli Actions](#fortify-on-demand-fcli-actions) section below for more details.<br/><br/>Note that this may require a [GitHub Advanced Security](https://docs.github.com/en/get-started/learning-about-github/about-github-advanced-security) subscription, unless you're running this action on a public github.com repository. GitHub only supports importing SAST results; other results will not exported to GitHub. |
 |(PREVIEW)<br/>DO_PR_COMMENT<br/>PR_COMMENT_ACTION<br/>PR_COMMENT_EXTRA_OPTS|If `DO_PR_COMMENT` is set to `true` (implied if any of the other two `PR_COMMENT_*` variables are set, and implies `DO_WAIT`), a pull request comment listing new, re-introduced and removed issues will be generated using the fcli-provided [`github-pr-comment`](https://fortify.github.io/fcli/v3.6.0/fod-actions.html#_github_pr_comment) action or, if specified, the custom fcli action specified through `PR_COMMENT_ACTION`. Extra options for the fcli action can be passed through the `PR_COMMENT_EXTRA_OPTS` environment variable, for example to allow an unsigned custom action to be used. Please see the [Fcli Actions](#fortify-on-demand-fcli-actions) and [Pull Request Comments](#fortify-on-demand-pull-request-comments) sections below for more details.|
-| TOOL_DEFINITIONS | Fortify tool definitions are used by this GitHub Action to determine available versions, download location and other details of various Fortify-related tools, as required for action execution. By default, the Fortify-provided tool definitions hosted at https://github.com/<repo>/tool-definitions/releases/tag/v1 will be used.<br/><br/>This environment variable allows for overriding the default tool definitions, pointing to either a URL or local (workspace) file. For example, if GitHub workflows are not allowed to download tools from their public internet locations, customers may host the tool installation bundles on an internal server, together with a customized tool definitions bundle that lists the alternative download URLs. |
+| TOOL_DEFINITIONS | Fortify tool definitions are used by this GitHub Action to determine available versions, download location and other details of various Fortify-related tools, as required for action execution. By default, the Fortify-provided tool definitions hosted at https://github.com/fortify/tool-definitions/releases/tag/v1 will be used.<br/><br/>This environment variable allows for overriding the default tool definitions, pointing to either a URL or local (workspace) file. For example, if GitHub workflows are not allowed to download tools from their public internet locations, customers may host the tool installation bundles on an internal server, together with a customized tool definitions bundle that lists the alternative download URLs. |
 
 
 <!-- START-INCLUDE:action/_generic/fod/fod-fcli-actions.md -->
@@ -185,7 +185,7 @@ The standard workflow provided by this GitHub Action allows for running a static
       - name: Check out source code
         uses: actions/checkout@v4  
       - name: Run ScanCentral SAST & Debricked scan
-        uses: <repo>/github-action@v2
+        uses: fortify/github-action@v2
         with:
           sast-scan: true
           debricked-sca-scan: true
@@ -253,7 +253,7 @@ This section lists the environment variables that can be specified in the `env:`
 |DO_JOB_SUMMARY<br/>JOB_SUMMARY_ACTION<br/>JOB_SUMMARY_EXTRA_OPTS|If `DO_JOB_SUMMARY` is set to `true` (implied if any of the other two `JOB_SUMMARY_*` variables are set, and implies `DO_WAIT`), a job summary listing scan status and issue counts will be generated using the fcli-provided [SSC `appversion-summary`](https://fortify.github.io/fcli/v3.6.0/ssc-actions.html#_appversion_summary) or, if specified, the custom fcli action specified through `JOB_SUMMARY_ACTION`. Extra options for the fcli action can be passed through the `JOB_SUMMARY_EXTRA_OPTS` environment variable, for example to allow an unsigned custom action to be used or to specify an SSC filter set. Please see the [SSC Fcli Actions](#ssc-fcli-actions) section below for more details. |
 | DO_EXPORT<br/>EXPORT_ACTION<br/>EXPORT_EXTRA_OPTS | If `DO_EXPORT` is set to `true` (implied if any of the other two `EXPORT_*` variables are set, and implies `DO_WAIT`), this GitHub Action will will export scan results to the GitHub Security Code Scanning dashboard using the fcli-provided [SSC `github-sast-report`](https://fortify.github.io/fcli/v3.6.0/ssc-actions.html#_github_sast_report) action or, if specified, the custom fcli action specified through `EXPORT_ACTION`. Extra options for the fcli action can be passed through the `EXPORT_EXTRA_OPTS` environment variable, for example to to allow an unsigned custom action to be used or to specify an alternative SSC filter set. Please see the [SSC Fcli Actions](#ssc-fcli-actions) section below for more details.<br/><br/>Note that this may require a [GitHub Advanced Security](https://docs.github.com/en/get-started/learning-about-github/about-github-advanced-security) subscription, unless you're running this action on a public github.com repository. GitHub only supports importing SAST results; other results will not exported to GitHub. |
 |(PREVIEW)<br/>DO_PR_COMMENT<br/>PR_COMMENT_ACTION<br/>PR_COMMENT_EXTRA_OPTS|If `DO_PR_COMMENT` is set to `true` (implied if any of the other two `PR_COMMENT_*` variables are set, and implies `DO_WAIT`), a pull request comment listing new, re-introduced and removed issues will be generated using the fcli-provided [SSC `github-pr-comment`](https://fortify.github.io/fcli/v3.6.0/ssc-actions.html#_github_pr_comment) action or, if specified, the custom fcli action specified through `PR_COMMENT_ACTION`. Extra options for the fcli action can be passed through the `PR_COMMENT_EXTRA_OPTS` environment variable, for example to allow an unsigned custom action to be used or to specify a different SSC filter set. Please see the [SSC Fcli Actions](#ssc-fcli-actions) and [SSC Pull Request Comments](#ssc-pull-request-comments) sections below for more details.|
-| TOOL_DEFINITIONS | Fortify tool definitions are used by this GitHub Action to determine available versions, download location and other details of various Fortify-related tools, as required for action execution. By default, the Fortify-provided tool definitions hosted at https://github.com/<repo>/tool-definitions/releases/tag/v1 will be used.<br/><br/>This environment variable allows for overriding the default tool definitions, pointing to either a URL or local (workspace) file. For example, if GitHub workflows are not allowed to download tools from their public internet locations, customers may host the tool installation bundles on an internal server, together with a customized tool definitions bundle that lists the alternative download URLs. |
+| TOOL_DEFINITIONS | Fortify tool definitions are used by this GitHub Action to determine available versions, download location and other details of various Fortify-related tools, as required for action execution. By default, the Fortify-provided tool definitions hosted at https://github.com/fortify/tool-definitions/releases/tag/v1 will be used.<br/><br/>This environment variable allows for overriding the default tool definitions, pointing to either a URL or local (workspace) file. For example, if GitHub workflows are not allowed to download tools from their public internet locations, customers may host the tool installation bundles on an internal server, together with a customized tool definitions bundle that lists the alternative download URLs. |
 
 
 <!-- START-INCLUDE:action/_generic/ssc/ssc-fcli-actions.md -->
@@ -322,20 +322,20 @@ The modular implementation of this GitHub Action allows for implementing custom 
 
 | Action | Description |
 | :---   | :---        |
-| [<repo>/github&#8209;action/setup](https://github.com/<repo>/github-action/tree/v2/setup#readme) | This sub-action allows for installing various Fortify tools like fcli or ScanCentral Client for later use in your GitHub Actions workflow. This allows for implementing fully customized workflows that can easily utilize the various Fortify tools to interact with Fortify products and Debricked. |
-| [<repo>/github&#8209;action/package](https://github.com/<repo>/github-action/tree/v2/package#readme) | This sub-action can be used to easily package your source code for static scans, with the action handling low-level details like installation of ScanCentral Client and required Java version. |
-| [<repo>/github&#8209;action/fod&#8209;export](https://github.com/<repo>/github-action/tree/v2/fod-export#readme) | This sub-action allows for exporting vulnerability data from Fortify on Demand to the GitHub Security dashboard, with the action handling low-level details like installing the necessary Fortify tools, exporting the vulnerability data, and uploading this data to GitHub. |
-| [<repo>/github&#8209;action/ssc&#8209;export](https://github.com/<repo>/github-action/tree/v2/ssc-export#readme) | This sub-action allows for exporting vulnerability data from SSC to the GitHub Security dashboard, with the action handling low-level details like installing the necessary Fortify tools, exporting the vulnerability data, and uploading this data to GitHub. |
+| [fortify/github&#8209;action/setup](https://github.com/fortify/github-action/tree/v2/setup#readme) | This sub-action allows for installing various Fortify tools like fcli or ScanCentral Client for later use in your GitHub Actions workflow. This allows for implementing fully customized workflows that can easily utilize the various Fortify tools to interact with Fortify products and Debricked. |
+| [fortify/github&#8209;action/package](https://github.com/fortify/github-action/tree/v2/package#readme) | This sub-action can be used to easily package your source code for static scans, with the action handling low-level details like installation of ScanCentral Client and required Java version. |
+| [fortify/github&#8209;action/fod&#8209;export](https://github.com/fortify/github-action/tree/v2/fod-export#readme) | This sub-action allows for exporting vulnerability data from Fortify on Demand to the GitHub Security dashboard, with the action handling low-level details like installing the necessary Fortify tools, exporting the vulnerability data, and uploading this data to GitHub. |
+| [fortify/github&#8209;action/ssc&#8209;export](https://github.com/fortify/github-action/tree/v2/ssc-export#readme) | This sub-action allows for exporting vulnerability data from SSC to the GitHub Security dashboard, with the action handling low-level details like installing the necessary Fortify tools, exporting the vulnerability data, and uploading this data to GitHub. |
 
-The `<repo>/github-action` repository also provides the publicly available sub-actions listed in the table below, but these provide the full scan workflows as provided by this GitHub Action, with the top-level `<repo>/github-action` simply invoking one of these sub-actions based on action inputs and environment variables. As such, these sub-actions are not meant to provide re-usable building blocks, but it may be useful to look at the implementations of these sub-actions if you want to re-use any of their functionality in your custom workflows.
+The `fortify/github-action` repository also provides the publicly available sub-actions listed in the table below, but these provide the full scan workflows as provided by this GitHub Action, with the top-level `fortify/github-action` simply invoking one of these sub-actions based on action inputs and environment variables. As such, these sub-actions are not meant to provide re-usable building blocks, but it may be useful to look at the implementations of these sub-actions if you want to re-use any of their functionality in your custom workflows.
 
 | Action | Description |
 | :---   | :---        |
-| [<repo>/github&#8209;action/fod&#8209;sast&#8209;scan](https://github.com/<repo>/github-action/tree/v2/fod-sast-scan#readme) | Run a Fortify on Demand SAST scan. |
-| [<repo>/github&#8209;action/sc&#8209;sast&#8209;scan](https://github.com/<repo>/github-action/tree/v2/sc-sast-scan#readme) | Run a ScanCentral SAST scan and optional Debricked scan. |
-| [<repo>/github&#8209;action/ssc&#8209;debricked&#8209;scan](https://github.com/<repo>/github-action/tree/v2/ssc-debricked-scan#readme) | Run a Debricked-only scan and import scan results into SSC. |
+| [fortify/github&#8209;action/fod&#8209;sast&#8209;scan](https://github.com/fortify/github-action/tree/v2/fod-sast-scan#readme) | Run a Fortify on Demand SAST scan. |
+| [fortify/github&#8209;action/sc&#8209;sast&#8209;scan](https://github.com/fortify/github-action/tree/v2/sc-sast-scan#readme) | Run a ScanCentral SAST scan and optional Debricked scan. |
+| [fortify/github&#8209;action/ssc&#8209;debricked&#8209;scan](https://github.com/fortify/github-action/tree/v2/ssc-debricked-scan#readme) | Run a Debricked-only scan and import scan results into SSC. |
 
-These actions utilize the re-usable building blocks mentioned above, in combination with several sub-actions that are meant for internal use only. However, the source code of these internal-only sub-actions is publicly available, allowing you to gain a better understanding of how these are used to implement the functionality provided by `<repo>/github-action` and potentially re-use some of the ideas or code in your custom workflows. In particular, the `bash` scripts provided by the [`<repo>/github-action/internal/run-script`](https://github.com/<repo>/github-action/tree/v2/internal/run-script/scripts) provide some of the core functionality provided by this GitHub Action.
+These actions utilize the re-usable building blocks mentioned above, in combination with several sub-actions that are meant for internal use only. However, the source code of these internal-only sub-actions is publicly available, allowing you to gain a better understanding of how these are used to implement the functionality provided by `fortify/github-action` and potentially re-use some of the ideas or code in your custom workflows. In particular, the `bash` scripts provided by the [`fortify/github-action/internal/run-script`](https://github.com/fortify/github-action/tree/v2/internal/run-script/scripts) provide some of the core functionality provided by this GitHub Action.
 
 <!-- END-INCLUDE:action/_root/readme.md -->
 
@@ -345,15 +345,15 @@ These actions utilize the re-usable building blocks mentioned above, in combinat
 
 ## Support
 
-For general assistance, please join the [Fortify Community](https://community.opentext.com/cybersec/<repo>/) to get tips and tricks from other users and the OpenText team.
+For general assistance, please join the [Fortify Community](https://community.opentext.com/cybersec/fortify/) to get tips and tricks from other users and the OpenText team.
  
 OpenText customers can contact our world-class [support team](https://www.opentext.com/support/opentext-enterprise/) for questions, enhancement requests and bug reports. You can also raise questions and issues through your OpenText Fortify representative like Customer Success Manager or Technical Account Manager if applicable.
 
-You may also consider raising questions or issues through the [GitHub Issues page](https://github.com/<repo>/github-action/issues) (if available for this repository), providing public visibility and allowing anyone (including all contributors) to review and comment on your question or issue. Note that this requires a GitHub account, and given public visibility, you should refrain from posting any confidential data through this channel. 
+You may also consider raising questions or issues through the [GitHub Issues page](https://github.com/fortify/github-action/issues) (if available for this repository), providing public visibility and allowing anyone (including all contributors) to review and comment on your question or issue. Note that this requires a GitHub account, and given public visibility, you should refrain from posting any confidential data through this channel. 
 
 <!-- END-INCLUDE:h2.support.md -->
 
 
 ---
 
-*[This document was auto-generated; do not edit by hand](https://github.com/<repo>/shared-doc-resources/blob/main/USAGE.md)*
+*[This document was auto-generated; do not edit by hand](https://github.com/fortify/shared-doc-resources/blob/main/USAGE.md)*
