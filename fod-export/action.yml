@@ -4,13 +4,13 @@ author: 'Fortify'
 runs:
   using: composite
   steps:
-    - uses: $NewAction/internal/set-fod-var-defaults@main
-    - uses: $NewAction/setup@main
+    - uses: gendry-gh/github-action/internal/set-fod-var-defaults@main
+    - uses: gendry-gh/github-action/setup@main
       with:
         export-path: false
         fcli: action-default
-    - uses: $NewAction/internal/fod-login@main
-    - uses: $NewAction/internal/run-script@main
+    - uses: gendry-gh/github-action/internal/fod-login@main
+    - uses: gendry-gh/github-action/internal/run-script@main
       with:
         script: export.sh
       env: 

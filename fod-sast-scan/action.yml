@@ -4,21 +4,21 @@ author: 'Fortify'
 runs:
   using: composite
   steps:
-    - uses: $NewAction/internal/set-fod-var-defaults@main
-    - uses: $NewAction/setup@main
+    - uses: gendry-gh/github-action/internal/set-fod-var-defaults@main
+    - uses: gendry-gh/github-action/setup@main
       with:
         export-path: false
         fcli: action-default
-    - uses: $NewAction/internal/fod-login@main
-    - uses: $NewAction/package@main
-    - uses: $NewAction/internal/run-script@main
+    - uses: gendry-gh/github-action/internal/fod-login@main
+    - uses: gendry-gh/github-action/package@main
+    - uses: gendry-gh/github-action/internal/run-script@main
       with:
         script: fod-scan.sh
       env: 
         DO_SAST_SCAN: true # Not used for now
         GITHUB_TOKEN: ${{ github.token }}
     - if: env.DO_EXPORT == 'true'
-      uses: $NewAction/fod-export@main
+      uses: gendry-gh/github-action/fod-export@main
         
 branding:
   icon: 'shield'

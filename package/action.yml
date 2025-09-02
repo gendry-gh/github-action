@@ -4,12 +4,12 @@ author: 'Fortify'
 runs:
   using: composite
   steps:
-    - uses: $NewAction/internal/setup-java-for-sc-client@main
-    - uses: $NewAction/setup@main
+    - uses: gendry-gh/github-action/internal/setup-java-for-sc-client@main
+    - uses: gendry-gh/github-action/setup@main
       with:
         export-path: false
         sc-client: action-default
-    - uses: $NewAction/internal/run-script@main
+    - uses: gendry-gh/github-action/internal/run-script@main
       with:
         script: package.sh
     - name: Store ScanCentral package
