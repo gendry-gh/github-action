@@ -51,7 +51,7 @@ The sample workflow below demonstrates how to configure the action for installin
 ```yaml
     steps:    
       - name: Setup Fortify tools
-        uses: <repo>/github-action/setup@v2
+        uses: fortify/github-action/setup@v2
         with:
           tool-definitions: https://github.com/fortify/tool-definitions/releases/download/v1/tool-definitions.yaml.zip
           export-path: true
