@@ -1,4 +1,4 @@
-name: Run a script with optional post-job cleanup
+﻿name: Run a script with optional post-job cleanup
 description: 'Action to execute a bash script, optionally executing another script on job completion.'
 author: Fortify
 
@@ -30,7 +30,7 @@ runs:
     - run: echo "TEMP_DIR=$(pwd)" >> $GITHUB_ENV
       shell: bash
       working-directory: ${{ runner.temp }}
-    - uses: fortify/github-action/internal/run-script/js@main
+    - uses: $NewAction/internal/run-script/js@main
       with: 
         dir:    ${{ env._RUN_SCRIPTS_DIR }}
         script: ${{ inputs.script }}
@@ -39,3 +39,4 @@ runs:
 branding:
   icon: 'shield'
   color: 'blue'
+

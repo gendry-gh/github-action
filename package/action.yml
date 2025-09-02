@@ -1,15 +1,15 @@
-name: 'Package source code & dependencies'
+﻿name: 'Package source code & dependencies'
 description: 'Package source code & dependencies for SAST & SCA scans'
 author: 'Fortify'
 runs:
   using: composite
   steps:
-    - uses: fortify/github-action/internal/setup-java-for-sc-client@main
-    - uses: fortify/github-action/setup@main
+    - uses: $NewAction/internal/setup-java-for-sc-client@main
+    - uses: $NewAction/setup@main
       with:
         export-path: false
         sc-client: action-default
-    - uses: fortify/github-action/internal/run-script@main
+    - uses: $NewAction/internal/run-script@main
       with:
         script: package.sh
     - name: Store ScanCentral package
@@ -31,4 +31,5 @@ runs:
 branding:
   icon: 'shield'
   color: 'blue'
+
 

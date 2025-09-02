@@ -1,16 +1,16 @@
-name: 'Export SSC vulnerability data to GitHub'
+﻿name: 'Export SSC vulnerability data to GitHub'
 description: 'Export SSC vulnerability data to GitHub'
 author: 'Fortify'
 runs:
   using: composite
   steps:
-    - uses: fortify/github-action/internal/set-ssc-var-defaults@main
-    - uses: fortify/github-action/setup@main
+    - uses: $NewAction/internal/set-ssc-var-defaults@main
+    - uses: $NewAction/setup@main
       with:
         export-path: false
         fcli: action-default
-    - uses: fortify/github-action/internal/ssc-login@main
-    - uses: fortify/github-action/internal/run-script@main
+    - uses: $NewAction/internal/ssc-login@main
+    - uses: $NewAction/internal/run-script@main
       with:
         script: export.sh
       env: 
@@ -30,4 +30,5 @@ runs:
 branding:
   icon: 'shield'
   color: 'blue'
+
 

@@ -1,26 +1,27 @@
-name: 'Perform SAST scan'
+﻿name: 'Perform SAST scan'
 description: 'Perform a SAST scan on Fortify on Demand'
 author: 'Fortify'
 runs:
   using: composite
   steps:
-    - uses: fortify/github-action/internal/set-fod-var-defaults@main
-    - uses: fortify/github-action/setup@main
+    - uses: $NewAction/internal/set-fod-var-defaults@main
+    - uses: $NewAction/setup@main
       with:
         export-path: false
         fcli: action-default
-    - uses: fortify/github-action/internal/fod-login@main
-    - uses: fortify/github-action/package@main
-    - uses: fortify/github-action/internal/run-script@main
+    - uses: $NewAction/internal/fod-login@main
+    - uses: $NewAction/package@main
+    - uses: $NewAction/internal/run-script@main
       with:
         script: fod-scan.sh
       env: 
         DO_SAST_SCAN: true # Not used for now
         GITHUB_TOKEN: ${{ github.token }}
     - if: env.DO_EXPORT == 'true'
-      uses: fortify/github-action/fod-export@main
+      uses: $NewAction/fod-export@main
         
 branding:
   icon: 'shield'
   color: 'blue'
+
 
