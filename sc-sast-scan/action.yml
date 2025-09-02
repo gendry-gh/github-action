@@ -4,28 +4,22 @@ author: 'Fortify'
 runs:
   using: composite
   steps:
-    - name: Check out this action's repo at the same ref
-      uses: actions/checkout@v4
-      with:
-        repository: ${{ github.action_repository }}
-        ref: ${{ github.action_ref }}
-        path: __self__
-    - uses: ./__self__/internal/set-ssc-var-defaults@main
-    - uses: ./__self__/setup@main
+    - uses: fortify/github-action/internal/set-ssc-var-defaults@main
+    - uses: fortify/github-action/setup@main
       with:
         export-path: false
         fcli: action-default
         debricked-cli: ${{ env.DO_DEBRICKED_SCAN=='true' && 'action-default' || 'skip' }}
-    - uses: ./__self__/internal/ssc-login@main
-    - uses: ./__self__/package@main
-    - uses: ./__self__/internal/run-script@main
+    - uses: fortify/github-action/internal/ssc-login@main
+    - uses: fortify/github-action/package@main
+    - uses: fortify/github-action/internal/run-script@main
       with:
         script: sc-sast-and-debricked-scan.sh
       env: 
         DO_SC_SAST_SCAN: true
         GITHUB_TOKEN: ${{ github.token }}
     - if: env.DO_EXPORT == 'true'
-      uses: ./__self__/ssc-export@main
+      uses: fortify/github-action/ssc-export@main
         
 branding:
   icon: 'shield'
